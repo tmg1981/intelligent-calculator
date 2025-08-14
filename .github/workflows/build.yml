@@ -9,34 +9,42 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # 1. دریافت کد از ریپازیتوری
       - name: Checkout code
         uses: actions/checkout@v3
 
+      # 2. نصب Node.js برای اجرای دستورات npm
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '18'
 
+      # 3. نصب Java (JDK) که برای ساخت اندروید ضروری است
       - name: Setup Java
         uses: actions/setup-java@v3
         with:
           distribution: 'zulu'
           java-version: '17'
 
+      # 4. نصب وابستگی‌های پروژه (Capacitor و...)
       - name: Install dependencies
         run: npm ci
 
+      # 5. افزودن پلتفرم اندروید به پروژه Capacitor
       - name: Install Capacitor Android
         run: npx cap add android
 
+      # 6. همگام‌سازی فایل‌های وب با پروژه اندروید
       - name: Sync Capacitor
         run: npx cap sync
 
+      # 7. ساخت فایل APK (نسخه Debug برای تست)
       - name: Build Android APK
         run: npx cap run android --no-sync -- -b assembleDebug
 
+      # 8. آپلود فایل APK نهایی با نسخه اصلاح‌شده اکشن
       - name: Upload APK as Artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4 # <-- اینجا اصلاح شد
         with:
-          name: pro-calc-apk
+          name: pro-calc-apk # نام فایل دانلودی
           path: android/app/build/outputs/apk/debug/app-debug.apk
