@@ -1,0 +1,6 @@
+{
+  "appId": "io.github.myusername.procalc",
+  "appName": "Pro Calc",
+  "webDir": "www",
+  "bundledWebRuntime": false
+}

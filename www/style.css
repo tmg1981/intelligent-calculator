@@ -1,0 +1,139 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+*, *::before, *::after { box-sizing: border-box; }
+
+:root {
+    --font-family: 'Poppins', sans-serif;
+    --bg-color-light: #e0e5ec;
+    --primary-text-color-light: #3b4252;
+    --secondary-text-color-light: #5a6472;
+    --shadow-light-1: #a3b1c6;
+    --shadow-light-2: #ffffff;
+    --accent-color-operator-light: #4a90e2;
+    --accent-color-special-light: #f5a623;
+    --accent-color-equals-light: #4a67e2;
+    --accent-color-memory-light: #2e7d32;
+
+    --bg-color-dark: #2c2f36;
+    --primary-text-color-dark: #e0e5ec;
+    --secondary-text-color-dark: #a3b1c6;
+    --shadow-dark-1: #22252a;
+    --shadow-dark-2: #363942;
+    --accent-color-operator-dark: #5db0ff;
+    --accent-color-special-dark: #ffb74d;
+    --accent-color-equals-dark: #5d7bff;
+    --accent-color-memory-dark: #66bb6a;
+}
+
+body {
+    font-family: var(--font-family);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px 0;
+    transition: background-color 0.4s ease;
+}
+body.light-theme { background-color: var(--bg-color-light); }
+body.dark-theme { background-color: var(--bg-color-dark); }
+
+.calculator-wrapper { position: relative; }
+
+.history-panel {
+    position: absolute;
+    bottom: calc(100% + 15px);
+    left: 50%;
+    width: calc(100% - 10px);
+    max-width: 380px;
+    max-height: 200px;
+    background-color: var(--bg-color-light);
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    z-index: 30;
+    transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+    overflow-y: auto;
+    color: var(--primary-text-color-light);
+    transform: translateX(-50%) translateY(10px);
+    opacity: 0;
+    pointer-events: none;
+}
+body.dark-theme .history-panel { background-color: #3a3d45; color: var(--primary-text-color-dark); box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+.history-panel.visible { transform: translateX(-50%) translateY(0); opacity: 1; pointer-events: auto; }
+.history-item { padding-bottom: 8px; margin-bottom: 8px; border-bottom: 1px solid rgba(0,0,0,0.1); font-size: 0.9rem; display: flex; justify-content: space-between; align-items: center; }
+body.dark-theme .history-item { border-bottom-color: rgba(255,255,255,0.1); }
+.history-item span:first-child { color: var(--secondary-text-color-light); }
+body.dark-theme .history-item span:first-child { color: var(--secondary-text-color-dark); }
+.history-item span:last-child { font-weight: 600; }
+.history-panel h3 { margin-top: 0; text-align: center; }
+
+.calculator-container {
+    width: 100%;
+    max-width: 380px;
+    padding: 20px;
+    border-radius: 30px;
+    box-shadow: -8px -8px 16px var(--shadow-2, var(--shadow-light-2)), 8px 8px 16px var(--shadow-1, var(--shadow-light-1));
+    transition: box-shadow 0.4s ease;
+    position: relative;
+    z-index: 20;
+    background-color: var(--bg-color-light);
+}
+body.dark-theme .calculator-container { --shadow-1: var(--shadow-dark-1); --shadow-2: var(--shadow-dark-2); background-color: var(--bg-color-dark); }
+
+.header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; padding: 0 5px; }
+.header h1 { font-size: 1.1rem; font-weight: 600; margin: 0; color: var(--primary-text-color-light); }
+body.dark-theme .header h1 { color: var(--primary-text-color-dark); }
+.header-controls { display: flex; align-items: center; gap: 15px; }
+#history-toggle { background: none; border: none; cursor: pointer; padding: 0; line-height: 0; transition: transform 0.3s; }
+#history-toggle:hover { transform: scale(1.1); }
+#history-toggle .icon-svg { width: 28px; height: 28px; color: var(--accent-color-special-light); }
+body.dark-theme #history-toggle .icon-svg { color: var(--accent-color-special-dark); }
+
+.theme-switcher { display: flex; align-items: center; padding: 5px; border-radius: 20px; cursor: pointer; box-shadow: inset -3px -3px 7px var(--shadow-2, var(--shadow-light-2)), inset 3px 3px 7px var(--shadow-1, var(--shadow-light-1)); }
+.theme-switcher .icon { font-size: 14px; padding: 4px; color: var(--secondary-text-color-light); }
+body.dark-theme .theme-switcher .icon { color: var(--secondary-text-color-dark); }
+.theme-switcher .ball { width: 20px; height: 20px; border-radius: 50%; transition: transform 0.4s ease, background-color 0.4s ease; }
+body.light-theme .theme-switcher .ball { background-color: var(--accent-color-special-light); transform: translateX(28px); }
+body.dark-theme .theme-switcher .ball { background-color: var(--accent-color-operator-dark); transform: translateX(0); }
+
+.screen {
+    position: relative; padding: 15px 20px; margin-bottom: 20px; border-radius: 20px; text-align: right;
+    box-shadow: inset -5px -5px 10px var(--shadow-2, var(--shadow-light-2)), inset 5px 5px 10px var(--shadow-1, var(--shadow-light-1));
+    overflow: hidden;
+}
+#memory-indicator { position: absolute; top: 10px; left: 15px; font-size: 1rem; font-weight: 600; color: var(--accent-color-memory-light); opacity: 0; transition: opacity 0.3s; }
+body.dark-theme #memory-indicator { color: var(--accent-color-memory-dark); }
+#memory-indicator.active { opacity: 1; }
+
+#main-display { min-height: 48px; font-size: 2.2rem; font-weight: 600; color: var(--primary-text-color-light); word-wrap: break-word; word-break: break-all; }
+body.dark-theme #main-display { color: var(--primary-text-color-dark); }
+
+.keypad-container { display: flex; flex-direction: column; gap: 12px; }
+.keypad { display: grid; gap: 12px; }
+
+.memory-pad { grid-template-columns: repeat(5, 1fr); }
+.main-pad { grid-template-columns: repeat(4, 1fr); }
+
+.keypad button {
+    border: none; outline: none; border-radius: 15px; font-weight: 600; padding: 16px 5px;
+    cursor: pointer; font-family: var(--font-family);
+    box-shadow: -4px -4px 8px var(--shadow-2, var(--shadow-light-2)), 4px 4px 8px var(--shadow-1, var(--shadow-light-1));
+    transition: all 0.15s ease-in-out;
+    background: var(--bg-color-light); color: var(--primary-text-color-light);
+    font-size: 1.1rem; display: flex; justify-content: center; align-items: center;
+    height: 60px;
+}
+body.dark-theme .keypad button { background: var(--bg-color-dark); color: var(--primary-text-color-dark); }
+.keypad button:active { box-shadow: inset -2px -2px 5px var(--shadow-2, var(--shadow-light-2)), inset 2px 2px 5px var(--shadow-1, var(--shadow-light-1)); transform: translateY(1px); }
+.keypad .icon-svg { width: 22px; height: 22px; }
+
+.keypad .key-special { color: var(--accent-color-special-light); }
+.keypad .key-operator { color: var(--accent-color-operator-light); }
+.keypad .key-memory { color: var(--accent-color-memory-light); font-size: 1rem; }
+.main-pad .key-equals { grid-row: span 2; background-color: var(--accent-color-equals-light); color: white; font-size: 1.5rem; height: 100%; }
+.main-pad .key-zero { grid-column: span 2; }
+
+body.dark-theme .keypad .key-special { color: var(--accent-color-special-dark); }
+body.dark-theme .keypad .key-operator { color: var(--accent-color-operator-dark); }
+body.dark-theme .keypad .key-memory { color: var(--accent-color-memory-dark); }
+body.dark-theme .main-pad .key-equals { background-color: var(--accent-color-equals-dark); color: var(--bg-color-dark); }

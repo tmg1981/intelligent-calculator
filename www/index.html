@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Pro Intelligent Calculator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="light-theme">
+
+    <div class="calculator-wrapper">
+        <div id="history-panel" class="history-panel">
+             <h3>History</h3>
+             <div id="history-content"></div>
+        </div>
+
+        <div class="calculator-container">
+            <div class="header">
+                <h1>Pro Calc</h1>
+                <div class="header-controls">
+                     <button id="history-toggle" title="Toggle History"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"></path><path d="M14 2v4a2 2 0 0 0 2 2h4"></path></svg></button>
+                    <div class="theme-switcher" id="theme-switcher" title="Toggle Theme">
+                        <div class="icon">☀️</div><div class="ball"></div><div class="icon">🌙</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="screen">
+                <div id="memory-indicator">M</div>
+                <div id="main-display">0</div>
+            </div>
+
+            <div class="keypad-container">
+                <div class="keypad memory-pad">
+                    <button data-value="(">(</button>
+                    <button data-value=")">)</button>
+                    <button class="key-memory" data-value="m-plus">M+</button>
+                    <button class="key-memory" data-value="m-minus">M-</button>
+                    <button class="key-memory" data-value="m-recall">MR</button>
+                </div>
+                <div class="keypad main-pad">
+                    <button class="key-special" data-value="clear">AC</button>
+                    <button data-value="sqrt">√</button>
+                    <button class="key-operator" data-value="%">%</button>
+                    <button class="key-special" data-value="backspace"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 4H8l-7 8 7 8h13a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z"></path><line x1="18" y1="9" x2="12" y2="15"></line><line x1="12" y1="9" x2="18" y2="15"></line></svg></button>
+                    
+                    <button data-value="7">7</button>
+                    <button data-value="8">8</button>
+                    <button data-value="9">9</button>
+                    <button class="key-operator" data-value="/">÷</button>
+                    
+                    <button data-value="4">4</button>
+                    <button data-value="5">5</button>
+                    <button data-value="6">6</button>
+                    <button class="key-operator" data-value="*">×</button>
+                    
+                    <button data-value="1">1</button>
+                    <button data-value="2">2</button>
+                    <button data-value="3">3</button>
+                    <button class="key-operator" data-value="-">−</button>
+                    
+                    <button class="key-zero" data-value="0">0</button>
+                    <button data-value=".">.</button>
+                    <button class="key-operator" data-value="+">+</button>
+                    
+                    <button class="key-equals" data-value="=">=</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
